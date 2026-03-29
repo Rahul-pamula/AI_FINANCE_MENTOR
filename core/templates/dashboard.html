@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Money Mentor - Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+    extend: {
+        colors: {
+        "on-error": "#ffffff", "on-secondary": "#ffffff", "surface-dim": "#d8dadc", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4cad6", "on-error-container": "#93000a", "inverse-primary": "#bdc2ff", "primary": "#000666", "surface-tint": "#4c56af", "on-tertiary": "#ffffff", "primary-container": "#1a237e", "inverse-surface": "#2d3133", "on-secondary-container": "#526772", "surface": "#f8f9fb", "surface-container-low": "#f2f4f6", "on-primary": "#ffffff", "tertiary-fixed-dim": "#88d982", "on-background": "#191c1e", "on-secondary-fixed": "#071e27", "outline-variant": "#c6c5d4", "surface-container": "#eceef0", "on-primary-fixed": "#000767", "tertiary-container": "#003909", "on-secondary-fixed-variant": "#354a53", "background": "#f8f9fb", "error-container": "#ffdad6", "tertiary-fixed": "#a3f69c", "on-tertiary-container": "#5aa958", "error": "#ba1a1a", "on-primary-container": "#8690ee", "surface-variant": "#e0e3e5", "primary-fixed": "#e0e0ff", "on-tertiary-fixed-variant": "#005312", "outline": "#767683", "tertiary": "#002103", "secondary-container": "#cfe6f2", "on-primary-fixed-variant": "#343d96", "secondary-fixed": "#cfe6f2", "inverse-on-surface": "#eff1f3", "surface-bright": "#f8f9fb", "on-surface": "#191c1e", "on-tertiary-fixed": "#002204", "primary-fixed-dim": "#bdc2ff", "secondary": "#4c616c", "surface-container-highest": "#e0e3e5", "surface-container-lowest": "#ffffff", "on-surface-variant": "#454652"
+        },
+        fontFamily: {
+        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+    },
+    },
+}
+</script>
+<style>
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.growth-glow { box-shadow: inset 0 0 20px rgba(163, 246, 156, 0.15); }
+body { min-height: max(884px, 100dvh); }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-blue-900/5 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<h1 class="font-manrope font-extrabold text-blue-900 dark:text-blue-50 text-lg tracking-tight">AI Money Mentor</h1>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-12">
+<section class="flex flex-col gap-2">
+<span class="font-label text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/60">Financial Insights</span>
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-4xl font-extrabold text-primary tracking-tight leading-none">Dashboard<span class="text-tertiary-fixed-dim">.</span></h2>
+<p class="font-body text-on-surface-variant text-sm max-w-[180px] text-right">Your wealth analysis</p>
+</div>
+</section>
+
+<!-- Error / Loading -->
+<h3 id="loader" class="text-primary text-xl font-bold animate-pulse text-center mt-6">Analyzing financials...</h3>
+<div id="content" class="space-y-10 hidden">
+    <!-- Score Card -->
+    <section class="group">
+        <label class="font-headline text-xl font-bold text-primary mb-4 block">Money Health Score</label>
+        <div class="relative bg-primary-container rounded-2xl p-6 growth-glow overflow-hidden flex justify-between items-center">
+        <div class="relative z-10 flex flex-col gap-1">
+            <span class="font-label text-sm font-bold tracking-widest uppercase text-on-primary-container/70">Health Index</span>
+            <div class="font-headline text-6xl font-extrabold text-white mt-2">
+                <span id="score-val">--</span><span class="text-2xl text-white/50">/100</span>
+            </div>
+            <p id="suggestions" class="text-white/80 text-sm mt-4 leading-relaxed max-w-sm"></p>
+        </div>
+        <div class="absolute -right-12 -top-12 w-48 h-48 bg-tertiary-fixed/10 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+    
+    <!-- SIP Card -->
+    <section class="group">
+        <label class="font-headline text-xl font-bold text-primary mb-4 block">SIP Suggestion</label>
+        <div class="relative bg-surface-container-low rounded-xl p-5 group">
+            <h4 class="font-bold text-on-surface-variant mb-2 uppercase text-xs tracking-widest">Recommended Monthly SIP</h4>
+            <div class="font-headline text-4xl font-extrabold text-primary">
+                ₹<span id="sip-val">0.00</span>
+            </div>
+            <p id="sip-explanation" class="mt-4 text-sm font-medium text-on-surface-variant/80"></p>
+        </div>
+    </section>
+</div>
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 backdrop-blur-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] rounded-t-3xl border-t border-slate-200/20">
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/">
+<span class="material-symbols-outlined mb-1">account_balance_wallet</span>
+<span class="font-manrope text-[10px] font-bold uppercase">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-2xl px-5 py-2 group" href="#">
+<span class="material-symbols-outlined mb-1 text-primary">insights</span>
+<span class="font-manrope text-[10px] font-bold uppercase text-primary">Score & SIP</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/chat/">
+<span class="material-symbols-outlined mb-1">forum</span>
+<span class="font-manrope text-[10px] font-bold uppercase">AI Chat</span>
+</a>
+</nav>
+
+<script>
+window.addEventListener('load', async () => {
+    const income = localStorage.getItem('income');
+    const expenses = localStorage.getItem('expenses');
+    const savings = localStorage.getItem('savings');
+    
+    if(!income) {
+        window.location.href = "/";
+        return;
+    }
+    
+    try {
+        const scoreRes = await fetch('/api/score/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ monthly_income: income, monthly_expenses: expenses, savings: savings })
+        });
+        const scoreData = await scoreRes.json();
+        
+        const sipRes = await fetch('/api/sip/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ monthly_income: income, monthly_expenses: expenses })
+        });
+        const sipData = await sipRes.json();
+        
+        document.getElementById('score-val').innerText = scoreData.score || '--';
+        document.getElementById('suggestions').innerText = (scoreData.suggestions || []).join(' ');
+        
+        document.getElementById('sip-val').innerText = sipData.recommended_sip || '0.00';
+        document.getElementById('sip-explanation').innerText = sipData.explanation || '';
+        
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('content').classList.remove('hidden');
+    } catch (e) {
+        document.getElementById('loader').innerText = "Failed to evaluate metrics.";
+    }
+});
+</script>
+</body></html>

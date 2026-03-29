@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Money Mentor - AI Advisor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+    extend: {
+        colors: {
+        "primary": "#000666", "primary-container": "#1a237e", "surface": "#f8f9fb", "surface-container-low": "#f2f4f6", "on-primary": "#ffffff", "on-background": "#191c1e", "outline-variant": "#c6c5d4", "surface-variant": "#e0e3e5", "surface-bright": "#f8f9fb", "on-surface": "#191c1e", "on-surface-variant": "#454652"
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] },
+    },
+    },
+}
+</script>
+<style>
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+body { min-height: max(884px, 100dvh); }
+#chatBox {
+    height: 50vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 20px;
+}
+.chat-bubble {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.chat-user {
+    background-color: #1a237e;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+.chat-ai {
+    background-color: #f2f4f6;
+    color: #191c1e;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+.loading-dots:after {
+    content: '.';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80%, 100% { content: ''; }
+}
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32 flex flex-col">
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 backdrop-blur-xl shadow-sm shadow-blue-900/5 flex items-center justify-between px-6 py-4">
+<h1 class="font-manrope font-extrabold text-blue-900 text-lg tracking-tight">AI Money Mentor</h1>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto flex-1 flex flex-col w-full h-full">
+<section class="flex flex-col gap-2 mb-8">
+<span class="font-label text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/60">Expert Advice</span>
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-4xl font-extrabold text-primary tracking-tight leading-none">AI Advisor.</h2>
+</div>
+</section>
+
+<!-- Chat Window -->
+<div id="chatWindow" class="bg-white rounded-2xl shadow-sm border border-slate-100 flex-1 p-5 flex flex-col w-full">
+    <div id="chatBox">
+        <div class="chat-bubble chat-ai">
+            Namaste! I am your AI Money Mentor. How can I help you with your financial journey today?
+        </div>
+    </div>
+    
+    <!-- Input -->
+    <div class="mt-4 flex gap-2 w-full pt-4 border-t border-slate-100 relative">
+        <input id="chatInput" class="flex-1 bg-surface-container-low rounded-xl border-none focus:ring-1 focus:ring-primary px-4 py-3 text-sm placeholder:text-outline-variant" type="text" placeholder="e.g. Where should I invest 5000 per month?">
+        <button id="sendBtn" class="bg-primary text-white rounded-xl px-4 py-3 hover:bg-primary-container transition-colors shadow-lg shadow-primary/20">
+            <span class="material-symbols-outlined">send</span>
+        </button>
+    </div>
+</div>
+
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 backdrop-blur-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] rounded-t-3xl border-t border-slate-200/20">
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/">
+<span class="material-symbols-outlined mb-1">account_balance_wallet</span>
+<span class="font-manrope text-[10px] font-bold uppercase">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/dashboard/">
+<span class="material-symbols-outlined mb-1">insights</span>
+<span class="font-manrope text-[10px] font-bold uppercase">Score & SIP</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-2xl px-5 py-2 group" href="#">
+<span class="material-symbols-outlined mb-1 text-primary">forum</span>
+<span class="font-manrope text-[10px] font-bold uppercase text-primary">AI Chat</span>
+</a>
+</nav>
+
+<script>
+const inputEl = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+const chatBox = document.getElementById('chatBox');
+
+function appendMessage(text, isAi) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-bubble ${isAi ? 'chat-ai' : 'chat-user'}`;
+    
+    if(text === 'loading') {
+        msgDiv.id = 'loadingMsg';
+        msgDiv.innerHTML = '<span class="loading-dots text-lg">Thinking</span>';
+    } else {
+        msgDiv.innerText = text;
+    }
+    
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendMessage() {
+    const text = inputEl.value.trim();
+    if(!text) return;
+    
+    inputEl.value = '';
+    appendMessage(text, false);
+    
+    // Disable inputs
+    inputEl.disabled = true;
+    sendBtn.disabled = true;
+    
+    // Add loading
+    appendMessage('loading', true);
+    
+    try {
+        const res = await fetch('/api/chat/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        
+        // Remove loading
+        document.getElementById('loadingMsg').remove();
+        
+        if (data.error) {
+            appendMessage(`Error: ${data.error}. Did you set the Groq API Key?`, true);
+        } else {
+            appendMessage(data.response, true);
+        }
+    } catch (e) {
+        document.getElementById('loadingMsg').remove();
+        appendMessage('Connection error. Please try again.', true);
+    }
+    
+    inputEl.disabled = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
+}
+
+sendBtn.addEventListener('click', sendMessage);
+inputEl.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') sendMessage();
+});
+</script>
+</body></html>

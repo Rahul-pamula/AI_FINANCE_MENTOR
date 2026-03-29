@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-money-mentor
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn ai_money_mentor.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12.0"

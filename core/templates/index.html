@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Money Mentor - Input Data</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+    extend: {
+        colors: {
+        "on-error": "#ffffff", "on-secondary": "#ffffff", "surface-dim": "#d8dadc", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4cad6", "on-error-container": "#93000a", "inverse-primary": "#bdc2ff", "primary": "#000666", "surface-tint": "#4c56af", "on-tertiary": "#ffffff", "primary-container": "#1a237e", "inverse-surface": "#2d3133", "on-secondary-container": "#526772", "surface": "#f8f9fb", "surface-container-low": "#f2f4f6", "on-primary": "#ffffff", "tertiary-fixed-dim": "#88d982", "on-background": "#191c1e", "on-secondary-fixed": "#071e27", "outline-variant": "#c6c5d4", "surface-container": "#eceef0", "on-primary-fixed": "#000767", "tertiary-container": "#003909", "on-secondary-fixed-variant": "#354a53", "background": "#f8f9fb", "error-container": "#ffdad6", "tertiary-fixed": "#a3f69c", "on-tertiary-container": "#5aa958", "error": "#ba1a1a", "on-primary-container": "#8690ee", "surface-variant": "#e0e3e5", "primary-fixed": "#e0e0ff", "on-tertiary-fixed-variant": "#005312", "outline": "#767683", "tertiary": "#002103", "secondary-container": "#cfe6f2", "on-primary-fixed-variant": "#343d96", "secondary-fixed": "#cfe6f2", "inverse-on-surface": "#eff1f3", "surface-bright": "#f8f9fb", "on-surface": "#191c1e", "on-tertiary-fixed": "#002204", "primary-fixed-dim": "#bdc2ff", "secondary": "#4c616c", "surface-container-highest": "#e0e3e5", "surface-container-lowest": "#ffffff", "on-surface-variant": "#454652"
+        },
+        fontFamily: {
+        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+    },
+    },
+}
+</script>
+<style>
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.growth-glow { box-shadow: inset 0 0 20px rgba(163, 246, 156, 0.15); }
+body { min-height: max(884px, 100dvh); }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-blue-900/5 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<h1 class="font-manrope font-extrabold text-blue-900 dark:text-blue-50 text-lg tracking-tight">AI Money Mentor</h1>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-12">
+<section class="flex flex-col gap-2">
+<span class="font-label text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/60">Financial Input</span>
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-4xl font-extrabold text-primary tracking-tight leading-none">The Ledger<span class="text-tertiary-fixed-dim">.</span></h2>
+<p class="font-body text-on-surface-variant text-sm max-w-[180px] text-right">Document your flow. Curate your wealth.</p>
+</div>
+</section>
+<div class="space-y-10">
+<section class="group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<label class="font-headline text-xl font-bold text-primary">Monthly Income</label>
+</div>
+<div class="relative bg-surface-container-low rounded-xl p-1 focus-within:ring-0 group">
+<input id="income" class="w-full bg-transparent border-none focus:ring-0 font-headline text-3xl font-extrabold px-5 py-4 text-primary placeholder:text-outline-variant/40 transition-all" placeholder="0.00" type="number"/>
+<div class="absolute bottom-0 left-5 right-5 h-[2px] bg-outline-variant/15 group-focus-within:bg-tertiary-fixed transition-colors"></div>
+<div class="absolute right-5 top-1/2 -translate-y-1/2 font-label text-sm font-bold text-on-surface-variant/40 tracking-widest">INR</div>
+</div>
+</section>
+<section class="group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<label class="font-headline text-xl font-bold text-primary">Monthly Expenses</label>
+</div>
+<div class="relative bg-surface-container-low rounded-xl p-1 focus-within:ring-0 group">
+<input id="expenses" class="w-full bg-transparent border-none focus:ring-0 font-headline text-3xl font-extrabold px-5 py-4 text-primary placeholder:text-outline-variant/40 transition-all" placeholder="0.00" type="number"/>
+<div class="absolute bottom-0 left-5 right-5 h-[2px] bg-outline-variant/15 group-focus-within:bg-tertiary-fixed transition-colors"></div>
+<div class="absolute right-5 top-1/2 -translate-y-1/2 font-label text-sm font-bold text-on-surface-variant/40 tracking-widest">INR</div>
+</div>
+</section>
+<section class="group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined" data-icon="savings">savings</span>
+</div>
+<label class="font-headline text-xl font-bold text-primary">Savings Info</label>
+</div>
+<div class="relative bg-primary-container rounded-2xl p-6 growth-glow overflow-hidden">
+<div class="relative z-10 flex flex-col gap-1">
+<span class="font-label text-[10px] font-bold tracking-widest uppercase text-on-primary-container/70">Current Monthly Savings</span>
+<input id="savings" class="w-full bg-transparent border-none focus:ring-0 font-headline text-4xl font-extrabold text-white placeholder:text-on-primary-container/30 p-0 mb-4" placeholder="0.00" type="number"/>
+</div>
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-tertiary-fixed/10 rounded-full blur-3xl"></div>
+</div>
+<p class="text-red-500 font-bold mt-2" id="error-msg"></p>
+</section>
+<div class="pt-6">
+<button id="save-btn" class="w-full py-5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline text-lg font-bold shadow-xl shadow-primary/10 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-3">
+<span>Save Entry</span>
+<span class="material-symbols-outlined text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+</button>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 backdrop-blur-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] rounded-t-3xl border-t border-slate-200/20">
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-2xl px-5 py-2 group" href="#">
+<span class="material-symbols-outlined mb-1 text-primary">account_balance_wallet</span>
+<span class="font-manrope text-[10px] font-bold uppercase text-primary">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/dashboard/">
+<span class="material-symbols-outlined mb-1">insights</span>
+<span class="font-manrope text-[10px] font-bold uppercase">Score & SIP</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-blue-700 group" href="/chat/">
+<span class="material-symbols-outlined mb-1">forum</span>
+<span class="font-manrope text-[10px] font-bold uppercase">AI Chat</span>
+</a>
+</nav>
+
+<script>
+document.getElementById('save-btn').addEventListener('click', async () => {
+    const income = document.getElementById('income').value;
+    const expenses = document.getElementById('expenses').value;
+    const savings = document.getElementById('savings').value;
+    const errorMsg = document.getElementById('error-msg');
+    
+    if(!income || income <= 0) {
+        errorMsg.innerText = "Please enter a valid monthly income greater than 0.";
+        return;
+    }
+    errorMsg.innerText = "";
+    document.getElementById('save-btn').innerText = "Processing...";
+    
+    // Save locally to pass to dashboard
+    localStorage.setItem('income', income);
+    localStorage.setItem('expenses', expenses);
+    localStorage.setItem('savings', savings);
+    
+    // Optional: send to backend
+    await fetch('/api/score/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ monthly_income: income, monthly_expenses: expenses, savings: savings })
+    });
+    
+    window.location.href = '/dashboard/';
+});
+</script>
+</body></html>
